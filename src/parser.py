@@ -1,20 +1,21 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import sys
 import operator
 from pytagcloud import create_tag_image, make_tags
 from pytagcloud.lang.counter import get_tag_counts
 
-if __name__ == '__main__':
+import pyfacebook
 
+
+if __name__ == '__main__':
+    
     try:
         infile = open('text.txt','r')
     except:
-        print "could not open file! exiting..."
         sys.exit()
 
-
-    
+        
     words_as_string = infile.read()
     words_as_string = words_as_string.replace('\n',' ')
     words_as_string = ''.join(ch for ch in words_as_string if ch.isalpha() or ch == ' ')
