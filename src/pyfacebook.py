@@ -5,7 +5,8 @@ from facebook_utils import FacebookMessage
 class FacebookInterface:
 
     def __init__(self,path_to_access_token):
-        with access_token as open(path_to_access_token,'r'):
+        with open(path_to_access_token,'r') as access_token_file:
+            access_token = access_token_file.read()
             self.graph = facebook.GraphAPI(access_token)
         try:
             self.graph
@@ -35,11 +36,16 @@ class FacebookMessageInterface(FacebookInterface):
     def get_messages_from_friend(self,friend_name):
         self.friend = friend_name
         #returns a dict containing: paging (id for request of next/previous page of messages), data, a list of messages/conversations and a summary
-        messages = self.graph['me/inbox']
+        inbox  = self.graph.get_object('me/inbox')
         
         
 
         while True:
+        
+
+            for raw_message in inbox['data']:
+                message = FacebookMessage(raw_message)
+                
             
         
         #parse the inbox for messages from this friend
