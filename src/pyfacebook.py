@@ -42,9 +42,9 @@ class FacebookMessageInterface(FacebookInterface):
 
         while True:
         
-
-            for raw_message in inbox['data']:
-                message = FacebookMessage(raw_message)
+            #when get to end will have to use paging to go to next
+            for raw_message_thread in inbox['data']: 
+                message = FacebookMessageThread(raw_message_thread)
                 
             
         

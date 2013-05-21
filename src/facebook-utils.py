@@ -42,7 +42,16 @@ class FacebookMessageThread:
             messages.append( FacebookMessage(message) )
 
         return (paging,messages)
-        
+
+
+class FacebookMessage:
+
+    def __init__(self,message_data):
+
+        self.created_time = message_data['created_time']
+        self.message_text = message_data['message']
+        self.author = message_data['from']
+        self.id = message_data['id']
         
         
                                     
