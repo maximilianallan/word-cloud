@@ -60,7 +60,7 @@ class FacebookMessageInterface(FacebookInterface):
         for message_id in self.messages:
             
             message_content = self.get_message_content(message_id)
-            '' += self.clean_message(message_content)
+            messages_as_string += self.clean_message(message_content)
 
         return messages_as_string
 
@@ -73,6 +73,7 @@ class FacebookMessageInterface(FacebookInterface):
     def clean_message(self,message_content):
         
         #remove punctuation and undersirable chars
+        pass
 
         
 
