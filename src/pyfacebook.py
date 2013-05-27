@@ -2,29 +2,35 @@ import facebook
 
 from facebook_utils import FacebookMessage
 
-class FacebookInterface:
+class FacebookInterface(object):
 
     def __init__(self,path_to_access_token):
+
         with open(path_to_access_token,'r') as access_token_file:
             access_token = access_token_file.read()
-            self.graph = facebook.GraphAPI(access_token)
+            self.graph_ = facebook.GraphAPI(access_token)
         try:
-            self.graph
+            self.graph_
         except:
             raise Exception('Could not open access token')
 
-        self.get_user()
+        self.user
 
-    def get_user(self):
+    @property
+    def user(self):
         try:
-            self.user
+            self.user_
         except:
-            self.user = graph.get_object("me")
-        return self.user
+            self.user_ = self.graph_.get_object("me")
+        return self.user_
     
-
-    def get_friends(self):
-        return graph.get_connections(self.user["id"], "friends")
+    @property
+    def friends(self):
+        try:
+            self.friends_
+        except:
+            self.friends_ = self.graph_.get_connections(self.user["id"], "friends")
+        return self.friends_
 
     
 
@@ -38,8 +44,6 @@ class FacebookMessageInterface(FacebookInterface):
         #returns a dict containing: paging (id for request of next/previous page of messages), data, a list of messages/conversations and a summary
         inbox  = self.graph.get_object('me/inbox')
         
-        
-
         while True:
         
             #when get to end will have to use paging to go to next
