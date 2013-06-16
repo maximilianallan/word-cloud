@@ -1,11 +1,11 @@
 import facebook
 
-from facebook_utils import FacebookMessage
+from facebook_utils import FacebookMessage,FacebookMessageThread
 
 class FacebookInterface(object):
 
     def __init__(self,path_to_access_token):
-
+        #open a connection to the facebook graph
         with open(path_to_access_token,'r') as access_token_file:
             access_token = access_token_file.read()
             self.graph_ = facebook.GraphAPI(access_token)
@@ -14,8 +14,7 @@ class FacebookInterface(object):
         except:
             raise Exception('Could not open access token')
 
-        self.user
-
+    
     @property
     def user(self):
         try:
@@ -37,19 +36,20 @@ class FacebookInterface(object):
 class FacebookMessageInterface(FacebookInterface):
 
     def __init__(self,path_to_access_token):
-        super.__init__(path_to_access_token)
+        super(FacebookMessageInterface,self).__init__(path_to_access_token)
         
     def get_messages_from_friend(self,friend_name):
+        
         self.friend = friend_name
-        #returns a dict containing: paging (id for request of next/previous page of messages), data, a list of messages/conversations and a summary
-        inbox  = self.graph.get_object('me/inbox')
+            
+        inbox  = self.graph_.get_object('me/inbox')
         
         while True:
         
             #when get to end will have to use paging to go to next
             for raw_message_thread in inbox['data']: 
-                message = FacebookMessageThread(raw_message_thread)
-                
+                message = FacebookMessageThread(raw_message_thread,self.graph_)
+                return message
             
         
         #parse the inbox for messages from this friend
