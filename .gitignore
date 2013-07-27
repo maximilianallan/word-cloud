@@ -36,3 +36,4 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+access_token.txt
