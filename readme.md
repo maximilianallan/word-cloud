@@ -24,3 +24,7 @@ Installation
 5. Admire the word cloud generated at cloud.png.         
  
        
+Current Status
+--------------
+
+Currently the code works for most users. Occasionally I find that the Facebook API returns empty messages for some users and I haven't yet found a way to fix this.
