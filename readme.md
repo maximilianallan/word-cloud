@@ -10,16 +10,17 @@ Create pretty visual word clouds using
 Installation
 ------------
 
-Install PyTagCloud using pip:
 
-        $ pip install -U pytagcloud
+1. Install [PyTagCloud](https://github.com/maximilianallan/PyTagCloud).
 
-Or use easy_install:
+2. Install the [Python SDK for Facebook.](https://github.com/maximilianallan/facebook-sdk).
+          
+3. Get a Facebook access token with permission to read the user's inbox from [here](https://developers.facebook.com/tools/explorer/?method=GET&path=223001829%3Ffields%3Did%2Cname). Eventually I will sort of Facebook permissions properly. Save this in the root project directory as access_token.txt.
 
-       $ easy_install -U pytagcloud
+4. Run as:
 
-TODO
-----
+         $ python word-cloud "John Smith"
 
-Further dependencies will arrive as I complete the project. 
+5. Admire the word cloud generated at cloud.png.         
+ 
        

@@ -2,16 +2,16 @@ import sys
 import operator
 from pytagcloud import create_tag_image, make_tags
 from pytagcloud.lang.counter import get_tag_counts
-
 from pyfacebook import FacebookInboxInterface
+import argparse
 
-fb = FacebookInboxInterface("access_token.txt")
 
-user_name = ""
-if len(user_name) == 0:
-  raise Exception("Add user name to __main__.py file")
+parser = argparse.ArgumentParser(description="Generate a visual word cloud from messages with a user.")
+parser.add_argument('name', type=str, help="The user's full name as it appears on Facebook (enclose in quote marks).")
+args = parser.parse_args()
   
-message_threads = fb.get_messages_from_friend(user_name)
+fb = FacebookInboxInterface("access_token.txt")
+message_threads = fb.get_messages_from_friend(args.name)
 
 words = ""
 for i in message_threads:
@@ -50,4 +50,4 @@ length = 1013
 if length >= len(tags):
   length = len(tags)-1
 
-create_tag_image(tags[0:length], 'cloud_large.png', size=(1800, 1200), fontname='Lobster')
+create_tag_image(tags[0:length], 'cloud.png', size=(1800, 1200), fontname='Lobster')
