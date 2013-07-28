@@ -43,7 +43,7 @@ class FacebookInboxInterface(FacebookInterface):
     inbox  = self.graph_.get_object('me/inbox')
     #inbox is dict { paging , data , summary }
     
-    messages = []
+    message_thread = []
     while True:
         
       #when get to end will have to use paging to go to next
@@ -51,14 +51,17 @@ class FacebookInboxInterface(FacebookInterface):
         
         message = FacebookMessageThread(raw_message_thread,self.graph_)
         if friend_name in message.participants and len(message.participants) == 2:
-          messages.append(message)
-      
+          
+          message_thread.append(message)
+          content = message_thread[-1].get_message_content()
+          message_thread[-1].messages = content
+          
       try:
         inbox = self.graph_.next(inbox)
       except KeyError:
         break
       
-    return messages
+    return message_thread
       
   def get_messages_as_string(self):
         

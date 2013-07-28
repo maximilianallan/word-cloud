@@ -27,10 +27,17 @@ class FacebookMessageThread:
     self.is_unread = message_object["unread"]
     self.message_id = message_object["id"]
     
+    self.messages = ""
+    
     try:
-      self.messages = self.get_message_content(message_object["comments"])
+      
+      self.message_content = message_object["comments"]
+      
+      #self.messages = self.get_message_content(message_object["comments"])
     except KeyError:
-      self.messages = "THIS IS EMPTY"
+      
+      self.message_content = {"data":""}
+      
  
  
   @staticmethod
@@ -58,7 +65,7 @@ class FacebookMessageThread:
       
     return participants
 
-  def get_message_content(self, message_content):
+  def get_message_content(self):#, message_content):
 
     """
     message content contains a dict containing a paging reference
@@ -69,7 +76,8 @@ class FacebookMessageThread:
 
     while True:
       
-      for message in message_content['data']:
+      
+      for message in self.message_content['data']:
         
         try:
           messages.append( FacebookMessage(message) )
@@ -78,7 +86,7 @@ class FacebookMessageThread:
         #yield FacebookMessage(message) 
 
       try:
-        message_content = self.graph_.next(message_content)
+        self.message_content = self.graph_.next(self.message_content)
       #if message_content['data'] == '':
       except KeyError:
         break
