@@ -4,7 +4,7 @@ from pytagcloud import create_tag_image, make_tags
 from pytagcloud.lang.counter import get_tag_counts
 from pyfacebook import FacebookInboxInterface
 import argparse
-
+import random
 
 parser = argparse.ArgumentParser(description="Generate a visual word cloud from messages with a user.")
 parser.add_argument('name', type=str, help="The user's full name as it appears on Facebook (enclose in quote marks).")
@@ -18,6 +18,10 @@ for i in message_threads:
   for m in i.messages:
     words += m.message_text
 
+if words == "":
+  print "Error, could not find messages from " + args.name
+  print "Exiting..."
+  sys.exit(1)
     
 words = words.replace("\n"," ")
 cleaned_words = ''.join(ch for ch in words if ch.isalpha() or ch == ' ')
@@ -31,7 +35,10 @@ count_of_words = [ (word,cleaned_words.count(word)) for word in unique_words ]
 tag_words = ""
 for word,count in count_of_words:
   if count > 1:
-    tag_words += (word + " ") * (count-1)
+    tag_words += (word + " ") * (count)
+  elif len(word) < 7 and random.random() < 0.3:
+    tag_words += (word + " ")
+  
 """
 sorted_words = sorted(count_of_words,key=operator.itemgetter(1))
     
