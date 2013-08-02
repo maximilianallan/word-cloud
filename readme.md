@@ -13,7 +13,7 @@ Installation
 
 1. Install [PyTagCloud](https://github.com/maximilianallan/PyTagCloud).
 
-2. Install the [Python SDK for Facebook.](https://github.com/maximilianallan/facebook-sdk). You need to use my fork as I added some paging functions that (were) not present in the old sdk.
+2. Install the [Python SDK for Facebook](https://github.com/maximilianallan/facebook-sdk). You need to use my fork as I added some paging functions that were not present in the old sdk.
           
 3. Get a Facebook access token with permission to read the user's inbox from [here](https://developers.facebook.com/tools/explorer/?method=GET&path=223001829%3Ffields%3Did%2Cname). Eventually I will sort of Facebook permissions properly. Save this in the root project directory as access_token.txt.
 
